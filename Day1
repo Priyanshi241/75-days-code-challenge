@@ -1,1 +1,50 @@
+---->Two Sum
+      Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
+      class Solution:
+        def twoSum(self, nums: List[int], target: int) -> List[int]:
+          for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+               if nums[i]+nums[j]==target:
+                  return [i,j]
+          return []
+
+______________________________________________________________________________________________________________________________
+--->Best Time to Buy and Sell Stock
+          You are given an array prices where prices[i] is the price of a given stock on the ith day.
+          You want to maximize your profit by choosing a single day to buy one stock and choosing a different 
+          day in the future to sell that stock.
+          Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+          class Solution:
+            def maxProfit(self, prices: List[int]) -> int:
+              if not prices or len(prices) < 2:
+                return 0
+
+              min_price = prices[0]
+              max_profit = 0
+
+              for price in prices:
+                min_price = min(min_price, price)
+                max_profit = max(max_profit, price - min_price)
+
+              return max_profit
+
+___________________________________________________________________________________________________________________________
+--->Move Zeroes
+          Given an integer array nums, move all 0's to the end of it while maintaining the relative 
+          order of the non-zero elements.
+
+          class Solution:
+                def moveZeroes(self, nums: List[int]) -> None:
+                    l1 = []
+                      for i in nums:
+                          if i != 0:
+                              l1.append(i)
+
+                       a = len(nums) - len(l1)
+                        # Modify nums in-place by assigning the values from l1
+                        nums[:len(l1)] = l1
+                        # Fill the remaining elements with zeros
+                        nums[len(l1):] = [0] * a
+___________________________________________________________________________________________________________________________
