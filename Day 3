@@ -1,0 +1,103 @@
+---->3Sum(https://leetcode.com/problems/3sum/)
+        Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+        Notice that the solution set must not contain duplicate triplets.
+
+class Solution {
+public:
+    std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
+        std::vector<std::vector<int>> result;
+
+        std::sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < nums.size() - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            int left = i + 1;
+            int right = nums.size() - 1;
+            int target = -nums[i];
+
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+
+                if (sum == target) {
+                    result.push_back({nums[i], nums[left], nums[right]});
+                    while (left < right && nums[left] == nums[left + 1])
+                        left++;
+                    while (left < right && nums[right] == nums[right - 1])
+                        right--;
+
+                    left++;
+                    right--;
+                } else if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return result;
+    }
+};
+____________________________________________________________________________________________________________________________________________________________________________
+---->Merge Intervals (https://leetcode.com/problems/merge-intervals/)
+
+        Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
+        and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+        class Solution {
+              public:
+                  std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
+                  std::vector<std::vector<int>> temp;
+
+        if (intervals.size() == 0)
+            return temp;
+
+        sort(intervals.begin(), intervals.end());
+
+        std::vector<int> new1 = intervals[0];
+
+        for (auto& it : intervals) {
+            if (it[0] <= new1[1]) {
+                new1[1] = std::max(it[1], new1[1]);
+            } else {
+                temp.push_back(new1);
+                new1 = it;
+            }
+        }
+        temp.push_back(new1);
+
+        return temp;
+    }
+};
+____________________________________________________________________________________________________________________________________________________________________________
+---->Remove Duplicates from Sorted Array(https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+
+      Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. 
+      The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+      Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+      Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. 
+      The remaining elements of nums are not important as well as the size of nums.
+          Return k
+
+        class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        std::vector<int>new1;
+        int n = nums.size();
+        
+        for (int i = 0; i < n - 1; i++) {
+            if (nums[i] != nums[i + 1]) {
+                new1.push_back(nums[i]);
+            }
+        }
+        if(nums.size()>0)
+            new1.push_back(nums[nums.size() - 1]);
+
+        nums=new1;
+        return nums.size();
+        
+    }
+};
+__________________________________________________________________________________________________________________________________________________________________________
